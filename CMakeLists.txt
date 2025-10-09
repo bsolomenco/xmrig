@@ -254,3 +254,14 @@ endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_BUILD_TYPE STREQUAL Release AND NOT CMAKE_GENERATOR STREQUAL Xcode)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} "$<TARGET_FILE:${PROJECT_NAME}>")
 endif()
+
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)                 #just in case install path was not specified
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}")             #... install in the path to the top level of the CMake source tree
+endif()
+install(TARGETS ${PROJECT_NAME}
+   #ARCHIVE         DESTINATION "lib"
+   #LIBRARY         DESTINATION "lib"
+    RUNTIME         DESTINATION "${CMAKE_INSTALL_PREFIX}"
+   #PUBLIC_HEADER   DESTINATION "inc"
+)
